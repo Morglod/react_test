@@ -1,0 +1,56 @@
+body {
+    margin-top: 20px;
+
+    font-family: "Open Sans", Verdana, Tahoma, sans-serif;
+    font-style: normal;
+    font-weight: 300;
+}
+
+a {
+    text-decoration: none;
+    color: initial;
+    cursor: pointer;
+}
+
+a:hover {
+    background-color: rgb(222, 222, 222);
+}
+
+.app {
+    background-color: white;
+    margin: 0 auto;
+    width: 400px;
+    height: auto;
+}
+
+.tbl {
+    display: table;
+    width: 100%;
+}
+
+.tbl-row {
+    display: table-row;
+    width: 100%;
+}
+
+.tbl-cell {
+    display: table-cell;
+    text-align: center;
+}
+
+.entry-row {
+    cursor: pointer;
+}
+
+.entry-row:hover {
+    background-color: rgb(222, 222, 222);
+}
+
+.hide-overlay {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.8);
+}
