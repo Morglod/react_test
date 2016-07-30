@@ -4,6 +4,7 @@ body {
     font-family: "Open Sans", Verdana, Tahoma, sans-serif;
     font-style: normal;
     font-weight: 300;
+    font-size: 18px;
 }
 
 a {
@@ -23,7 +24,7 @@ input, textarea {
     font-family: "Open Sans", Verdana, Tahoma, sans-serif;
     font-style: normal;
     font-weight: 300;
-    font-size: 16px;
+    font-size: 18px;
     width: 80%;
 }
 
