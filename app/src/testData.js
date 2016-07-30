@@ -2,7 +2,7 @@
 export const test_data_name = 'react-test-data';
 
 export default function populateTestData() {
-    if(window.localStorage.getItem('react-test-data') !== null) return;
+    if(window.localStorage.getItem('react-test-data') !== null && window.localStorage.getItem('react-test-data') !== 'null') return;
     const data = JSON.stringify([{
             id: 1,
             name: 'Петр',
