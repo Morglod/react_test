@@ -8,7 +8,7 @@ npm install
 ```cmd
 npm run dev
 ```
-Открыть страницу в браузере
+Открытие страницы в браузере
 ```cmd
 start http://localhost:8080/
 ```
