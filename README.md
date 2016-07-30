@@ -12,3 +12,5 @@ npm run dev
 ```cmd
 start http://localhost:8080/
 ```
+
+![preview](https://morglod.github.io/portfolio/img/react_test2.png)
