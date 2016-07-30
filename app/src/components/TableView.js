@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 
 import TableEntry from './TableEntry';
 
@@ -10,7 +10,7 @@ export default class TableView extends React.Component {
     render() {
         let entriesDOM =
             this.props.profiles
-            .map(entry => <TableEntry data={entry} />);
+            .map(entry => <TableEntry profile={entry} />);
 
         return (
             <div className="tbl">
@@ -19,3 +19,13 @@ export default class TableView extends React.Component {
         );
     }
 }
+
+TableView.propTypes = {
+    profiles: PropTypes.arrayOf(PropTypes.shape({
+        id: PropTypes.any,
+        name: PropTypes.string,
+        surname: PropTypes.string,
+        job: PropTypes.string,
+        about: PropTypes.string
+    })).isRequired
+};

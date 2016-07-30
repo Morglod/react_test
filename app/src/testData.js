@@ -1,4 +1,6 @@
 
+export const test_data_name = 'react-test-data';
+
 export default function populateTestData() {
     if(window.localStorage.getItem('react-test-data') !== null) return;
     const data = JSON.stringify([{
@@ -20,5 +22,5 @@ export default function populateTestData() {
             job: 'Бэкенд',
             about: 'Бэкендит'
         }]);
-    window.localStorage.setItem('react-test-data', data);
+    window.localStorage.setItem(test_data_name, data);
 }

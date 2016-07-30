@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 
 import LinkedState from '../linkedState';
 
@@ -60,8 +60,8 @@ export default class EditorForm extends React.Component {
     render() {
         return (
             <div className="hide-overlay">
-                <div className='app' style={{'z-index': 1, width: '350px'}}>
-                    <h3 style={{'text-align': 'center', 'margin-bottom': '10px', 'padding-top': '10px'}}>{this.state.headerText}</h3>
+                <div className='app' style={{zIndex: 1, width: '350px'}}>
+                    <h3 style={{textAlign: 'center', marginBottom: '10px', paddingTop: '10px'}}>{this.state.headerText}</h3>
                     <p className='error-text'>{this.state.errorText}</p>
                     <center>
                         <p>
@@ -77,9 +77,9 @@ export default class EditorForm extends React.Component {
                             <textarea placeholder="Подробнее" style={{'resize': 'vertical'}} valueLink={LinkedState(this, 'about')} />
                         </p>
                     </center>
-                    <div style={{'height': '23px'}}>
-                        <span style={{'float': 'right'}}>
-                        <a onClick={this.finish.bind(this)} style={{'margin-right': '10px'}}>{this.state.finishText}</a>
+                    <div style={{height: '23px'}}>
+                        <span style={{float: 'right'}}>
+                        <a onClick={this.finish.bind(this)} style={{marginRight: '10px'}}>{this.state.finishText}</a>
                             <a onClick={this.cancel.bind(this)}>Отмена</a>
                         </span>
                     </div>
@@ -88,3 +88,17 @@ export default class EditorForm extends React.Component {
         );
     }
 }
+
+EditorForm.propTypes = {
+    profile: PropTypes.shape({
+        id: PropTypes.any,
+        name: PropTypes.string,
+        surname: PropTypes.string,
+        job: PropTypes.string,
+        about: PropTypes.string
+    }).isRequired,
+    headerText: PropTypes.string,
+    finishText: PropTypes.string,
+    cancel: PropTypes.func.isRequired,
+    finish: PropTypes.func.isRequired
+};

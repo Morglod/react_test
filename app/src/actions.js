@@ -1,4 +1,5 @@
 import actionTypes from './actionTypes';
+import {test_data_name} from './testData';
 
 export function addProfile({name, surname, job, about}) {
     return {
@@ -57,7 +58,7 @@ export function fetchData() {
         dispatch(fetchDataBegin());
 
         setTimeout(() => {
-            let data = window.localStorage.getItem('react-test-data');
+            let data = window.localStorage.getItem(test_data_name);
             if(data === null || data === undefined) data = '[]';
             data = JSON.parse(data);
 
@@ -91,7 +92,7 @@ export function saveData(data) {
 
         setTimeout(() => {
             const json_data = JSON.stringify(data);
-            window.localStorage.setItem('react-test-data', json_data);
+            window.localStorage.setItem(test_data_name, json_data);
 
             dispatch(saveDataOk());
         }, 100);
