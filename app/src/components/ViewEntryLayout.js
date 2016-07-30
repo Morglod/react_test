@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from 'react-router';
 
 import * as actions from '../actions';
-import LinkedState from '../linkedState';
+import EditorForm from './EditorForm';
 
 export default class ViewEntryLayout extends React.Component {
     constructor() {
@@ -13,11 +13,7 @@ export default class ViewEntryLayout extends React.Component {
             profileId: null,
             profile: null,
             _unsubscribe: null,
-            _editMode: false,
-            _name: '',
-            _surname: '',
-            _job: '',
-            _about: ''
+            _editMode: false
         };
     }
 
@@ -71,14 +67,8 @@ export default class ViewEntryLayout extends React.Component {
         });
     }
 
-    saveEdit() {
-        const profile = {
-            id: this.state.profileId,
-            name: this.state._name,
-            surname: this.state._surname,
-            job: this.state._job,
-            about: this.state._about
-        };
+    saveEdit(profile) {
+        profile.id = this.state.profileId;
 
         this.setState({
             _editMode: false,
@@ -98,44 +88,26 @@ export default class ViewEntryLayout extends React.Component {
         if(this.state.profileId === null || this.state.profile === null) {
             return (
                 <div>
-                    <p>Данные не загружены</p>
-                    <a onClick={this.refresh.bind(this)}>Обновить</a>
-                    <Link to='/'>Назад</Link>
+                    <center><i className="fa fa-spinner fa-spin fa-3x fa-fw" style={{color: 'gray'}}></i></center>
+                    <a onClick={this.refresh.bind(this)}>Обновить</a> <Link to='/'>Назад</Link>
                 </div>
             );
         } else {
+            const profile = this.state.profile;
+
             let editor = null;
             if(this.state._editMode) {
                 editor = (
-                    <div className="hide-overlay">
-                        <div className='tbl app' style={{'z-index': 1, width: '400px'}}>
-                            <h1 style={{'text-align': 'center'}} className='tbl-row'>Редактирование профиля</h1>
-                            <p className='tbl-row'>
-                                <span className='tbl-cell'>Имя</span>
-                                <input className='tbl-cell' valueLink={LinkedState(this, '_name')} />
-                            </p>
-                            <p className='tbl-row'>
-                                <span className='tbl-cell'>Фамилия</span>
-                                <input className='tbl-cell' valueLink={LinkedState(this, '_surname')} />
-                            </p>
-                            <p className='tbl-row'>
-                                <span className='tbl-cell'>Должность</span>
-                                <input className='tbl-cell' valueLink={LinkedState(this, '_job')} />
-                            </p>
-                            <p className='tbl-row'>
-                                <span className='tbl-cell'>Подробнее</span>
-                                <textarea className='tbl-cell' valueLink={LinkedState(this, '_about')} />
-                            </p>
-                            <p className='tbl-row'>
-                                <a onClick={this.cancelEdit.bind(this)} className='tbl-cell'>Отмена</a>
-                                <a onClick={this.saveEdit.bind(this)} className='tbl-cell'>Сохранить</a>
-                            </p>
-                        </div>
-                    </div>
+                    <EditorForm
+                        profile={profile}
+                        headerText={'Редактирование профиля'}
+                        finishText={'Сохранить'}
+                        cancel={this.cancelEdit.bind(this)}
+                        finish={this.saveEdit.bind(this)}
+                    />
                 );
             }
 
-            const profile = this.state.profile;
 
             return (
                 <div>
@@ -143,7 +115,11 @@ export default class ViewEntryLayout extends React.Component {
                     <p>ФИО: {profile.name + ' ' + profile.surname}</p>
                     <p>Должность: {profile.job}</p>
                     <p>Подробнее: {profile.about}</p>
-                    <a onClick={this.beginEdit.bind(this)}>Редактировать</a>  <Link to='/'>Назад</Link>
+                    <div style={{'height': '23px'}}>
+                        <span style={{'float': 'right'}}>
+                            <a onClick={this.beginEdit.bind(this)}>Редактировать</a>  <Link to='/'>Назад</Link>
+                        </span>
+                    </div>
                 </div>
             );
         }

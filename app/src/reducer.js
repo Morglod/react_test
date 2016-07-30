@@ -1,5 +1,7 @@
 import { combineReducers } from "redux";
 
+import actionTypes from './actionTypes';
+
 const DefaultProfilesState = {
     profiles: [],
     fetching: false,
@@ -12,7 +14,7 @@ const DefaultProfilesState = {
 
 function profilesReducer(state = DefaultProfilesState, action) {
     switch(action.type) {
-        case "ADD_PROFILE": {
+        case actionTypes.ADD_PROFILE: {
             const newState = {...state};
             newState.profiles.push({
                 ...(action.payload),
@@ -21,7 +23,7 @@ function profilesReducer(state = DefaultProfilesState, action) {
 
             return newState;
         }
-        case "UPDATE_PROFILE": {
+        case actionTypes.UPDATE_PROFILE: {
             const {id} = action.payload;
             const newState = {...state};
             const indexToUpdate = newState.profiles.findIndex((profile) => {
@@ -34,10 +36,10 @@ function profilesReducer(state = DefaultProfilesState, action) {
 
             return newState;
         }
-        case "DELETE_PROFILE": {
+        case actionTypes.DELETE_PROFILE: {
             return state.profiles.filter(profile => profile.id !== action.payload);
         }
-        case "FETCH_DATA_OK": {
+        case actionTypes.FETCH_DATA_OK: {
             return {
                 ...state,
                 profiles: action.payload,
@@ -46,7 +48,7 @@ function profilesReducer(state = DefaultProfilesState, action) {
                 fetchError: null
             };
         }
-        case "FETCH_DATA_BEGIN": {
+        case actionTypes.FETCH_DATA_BEGIN: {
             return {
                 ...state,
                 profiles: null,
@@ -55,7 +57,7 @@ function profilesReducer(state = DefaultProfilesState, action) {
                 fetchError: null
             };
         }
-        case "FETCH_DATA_ERROR": {
+        case actionTypes.FETCH_DATA_ERROR: {
             return {
                 ...state,
                 profiles: null,
@@ -64,7 +66,7 @@ function profilesReducer(state = DefaultProfilesState, action) {
                 fetchError: action.payload
             };
         }
-        case "SAVE_DATA_BEGIN": {
+        case actionTypes.SAVE_DATA_BEGIN: {
             return {
                 ...state,
                 saving: true,
@@ -72,7 +74,7 @@ function profilesReducer(state = DefaultProfilesState, action) {
                 saveError: null
             };
         }
-        case "SAVE_DATA_ERROR": {
+        case actionTypes.SAVE_DATA_ERROR: {
             return {
                 ...state,
                 saving: false,
@@ -80,7 +82,7 @@ function profilesReducer(state = DefaultProfilesState, action) {
                 saveError: action.payload
             };
         }
-        case "SAVE_DATA_OK": {
+        case actionTypes.SAVE_DATA_OK: {
             return {
                 ...state,
                 saving: false,

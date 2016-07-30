@@ -2,7 +2,7 @@ import React from 'react';
 
 import TableView from './TableView';
 import * as actions from '../actions';
-import LinkedState from '../linkedState';
+import EditorForm from './EditorForm';
 
 export default class ViewMainLayout extends React.Component {
     constructor() {
@@ -17,11 +17,7 @@ export default class ViewMainLayout extends React.Component {
             saveError: null,
             profiles: [],
             _unsubscribe: null,
-            _editMode: false,
-            _name: '',
-            _surname: '',
-            _job: '',
-            _about: ''
+            _editMode: false
         };
     }
 
@@ -60,18 +56,12 @@ export default class ViewMainLayout extends React.Component {
         });
     }
 
-    finishAddProfile() {
+    finishAddProfile(profile) {
         this.setState({
             _editMode: false
         });
 
-        this.props.store.dispatch(actions.addProfile({
-            name: this.state._name,
-            surname: this.state._surname,
-            job: this.state._job,
-            about: this.state._about
-        }));
-        
+        this.props.store.dispatch(actions.addProfile(profile));
         this.props.store.dispatch(actions.saveData(this.props.store.getState().profiles.profiles));
     }
 
@@ -87,7 +77,7 @@ export default class ViewMainLayout extends React.Component {
         } else if(this.state.fetching) {
             return (
                 <div>
-                    <p>Загрузка...</p>
+                    <center><i className="fa fa-spinner fa-spin fa-3x fa-fw" style={{color: 'gray'}}></i></center>
                     <a onClick={this.tryFetchData.bind(this)}>Обновить</a>
                 </div>
             );
@@ -95,38 +85,20 @@ export default class ViewMainLayout extends React.Component {
             let editor = null;
             if(this.state._editMode) {
                 editor = (
-                    <div className="hide-overlay">
-                        <div className='tbl app' style={{'z-index': 1, width: '400px'}}>
-                            <h1 style={{'text-align': 'center'}} className='tbl-row'>Добавление профиля</h1>
-                            <p className='tbl-row'>
-                                <span className='tbl-cell'>Имя</span>
-                                <input className='tbl-cell' valueLink={LinkedState(this, '_name')} />
-                            </p>
-                            <p className='tbl-row'>
-                                <span className='tbl-cell'>Фамилия</span>
-                                <input className='tbl-cell' valueLink={LinkedState(this, '_surname')} />
-                            </p>
-                            <p className='tbl-row'>
-                                <span className='tbl-cell'>Должность</span>
-                                <input className='tbl-cell' valueLink={LinkedState(this, '_job')} />
-                            </p>
-                            <p className='tbl-row'>
-                                <span className='tbl-cell'>Подробнее</span>
-                                <textarea className='tbl-cell' valueLink={LinkedState(this, '_about')} />
-                            </p>
-                            <p className='tbl-row'>
-                                <a onClick={this.cancelAddProfile.bind(this)} className='tbl-cell'>Отмена</a>
-                                <a onClick={this.finishAddProfile.bind(this)} className='tbl-cell'>Добавить</a>
-                            </p>
-                        </div>
-                    </div>
+                    <EditorForm
+                        profile={{}}
+                        headerText={'Добавление профиля'}
+                        finishText={'Добавить'}
+                        cancel={this.cancelAddProfile.bind(this)}
+                        finish={this.finishAddProfile.bind(this)}
+                    />
                 );
             }
 
             return (
                 <div>
                     {editor}
-                    <center>
+                    <center style={{'margin-bottom': '10px'}}>
                         <a onClick={this.beginAddProfile.bind(this)}>Добавить</a>
                     </center>
                     <TableView profiles={this.state.profiles} />

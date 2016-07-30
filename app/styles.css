@@ -16,11 +16,36 @@ a:hover {
     background-color: rgb(222, 222, 222);
 }
 
+input, textarea {
+    text-align: initial !important;
+    border: 1px dashed #929292;
+
+    font-family: "Open Sans", Verdana, Tahoma, sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 16px;
+    width: 80%;
+}
+
+input {
+    border-top: none;
+    border-left: none;
+    border-right: none;
+}
+
+textarea {
+    margin-top: 10px;
+}
+
 .app {
     background-color: white;
     margin: 0 auto;
-    width: 400px;
+    width: 420px;
     height: auto;
+    margin-top: 10%;
+    box-shadow: 0 0 20px rgba(0,0,0,0.3);
+    padding: 10px;
+    padding-top: 0px;
 }
 
 .tbl {
@@ -52,5 +77,5 @@ a:hover {
     right: 0;
     top: 0;
     bottom: 0;
-    background-color: rgba(0,0,0,0.8);
+    background-color: rgba(0,0,0,0.5);
 }
