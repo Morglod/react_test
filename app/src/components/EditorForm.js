@@ -16,7 +16,9 @@ export default class EditorForm extends React.Component {
             finishText: 'Сохранить',
 
             cancel: null,
-            finish: null
+            finish: null,
+
+            errorText: ''
         };
     }
 
@@ -40,6 +42,15 @@ export default class EditorForm extends React.Component {
         if(this.state.finish) {
             const {id, name, surname, job, about} = this.state;
 
+            if( name.length === 0 ||
+                surname.length === 0 ||
+                job.length === 0) {
+                    this.setState({
+                        errorText: 'Заполните обязательные поля'
+                    });
+                    return;
+                }
+
             this.state.finish({
                 id, name, surname, job, about
             });
@@ -51,15 +62,16 @@ export default class EditorForm extends React.Component {
             <div className="hide-overlay">
                 <div className='app' style={{'z-index': 1, width: '350px'}}>
                     <h3 style={{'text-align': 'center', 'margin-bottom': '10px', 'padding-top': '10px'}}>{this.state.headerText}</h3>
+                    <p className='error-text'>{this.state.errorText}</p>
                     <center>
                         <p>
-                            <input placeholder="Имя" valueLink={LinkedState(this, 'name')} />
+                            <input placeholder="Имя" valueLink={LinkedState(this, 'name')} required />
                         </p>
                         <p>
-                            <input placeholder="Фамилия" valueLink={LinkedState(this, 'surname')} />
+                            <input placeholder="Фамилия" valueLink={LinkedState(this, 'surname')} required />
                         </p>
                         <p>
-                            <input placeholder="Должность" valueLink={LinkedState(this, 'job')} />
+                            <input placeholder="Должность" valueLink={LinkedState(this, 'job')} required />
                         </p>
                         <p>
                             <textarea placeholder="Подробнее" style={{'resize': 'vertical'}} valueLink={LinkedState(this, 'about')} />
